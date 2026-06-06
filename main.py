@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#Local onde vai ficar o projeto principal
+
+>>>>>>> d79a47a5361b90947b3496e463cd73a300621d3b
 from controllers.controller import *
 from views.menu_view import *
 
@@ -5,6 +10,7 @@ while True:
 
     exibir_menu()
 
+<<<<<<< HEAD
     opcao = input("Escolha uma opção: ")
 
     if opcao == "0":
@@ -58,3 +64,6 @@ while True:
 
     else:
         print("opção inválida!")
+=======
+    #siga a partir daqui
+>>>>>>> d79a47a5361b90947b3496e463cd73a300621d3b

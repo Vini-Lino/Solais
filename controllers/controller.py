@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from utils.validacoes import *
 
 ARQUIVO = "database/funcionarios.txt"
@@ -96,3 +97,24 @@ def buscar_funcionarios(nome):
             return funcionario
 
     return None
+=======
+# Local pra colocar os controlladores, é onde vai estar as funções que os outros arquivos.py vão puxar de,
+# função são os def do projeto
+
+from utils.validacoes import * # importar as funções de validação
+
+def login_funcionario():
+    pass # função de login, utilize em conjunto com validacoes.py 
+
+def salvar_funcionario(funcionario):
+    pass # salvar as alterações dos funcionários (quando for cadastrar)
+
+def carregar_funcionario():
+    pass # abrir o arquivo da database dos funcionarios com os dados
+
+def listar_funcionarios():
+    pass # listar os funcionários da database, seus nomes e email de todos
+
+def buscar_funcionarios():
+    pass # buscar um funcionário expecífico na database
+>>>>>>> d79a47a5361b90947b3496e463cd73a300621d3b
