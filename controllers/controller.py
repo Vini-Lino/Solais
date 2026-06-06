@@ -1,7 +1,38 @@
-from validations.validacoes import *
+from utils.validacoes import *
 
-ARQUIVO = "DataBase/funcionarios.txt"
+ARQUIVO = "database/funcionarios.txt"
 
+
+def login_funcionario():
+    funcionarios = carregar_funcionarios()
+
+    if not funcionarios:
+        print("Erro: Nenhum funcionário registrado no sistema.")
+        return None
+
+    usuario_encontrado = None
+
+    while True:
+        type_email = input("Digite o seu email: ").strip()
+
+        for funcionario in funcionarios:
+            if funcionario["email"].lower() == type_email.lower():
+                usuario_encontrado = funcionario
+                break
+        
+        if usuario_encontrado:
+            break
+        else:
+            print("Email não encontrado. Tente novamente.")
+
+    while True:
+        type_password = input("Digite a sua senha: ").strip()
+
+        if type_password == usuario_encontrado["senha"]:
+            print(f"\nBem Vindo(a), {usuario_encontrado["nome"]}!")
+            return usuario_encontrado
+        else:
+            print("Senha incorreta. Tente novamente.")
 
 def salvar_funcionario(funcionario):
     
@@ -9,15 +40,15 @@ def salvar_funcionario(funcionario):
 
         linha = (
             f"{funcionario['nome']};"
-            f"{funcionario['email']}"
-            f"{funcionario['senha']}"
+            f"{funcionario['email']};"
+            f"{funcionario['senha']}\n"
         )
 
         arquivo.write(linha)
 
 def carregar_funcionarios():
 
-    funcionario = []
+    funcionarios = []
 
     try:
 
@@ -27,18 +58,19 @@ def carregar_funcionarios():
 
                 dados = linha.strip().split(";")
 
-                funcionario = {
-                    "nome": dados[0],
-                    "email": dados[0],
-                    "senha": dados[0]
-                }
+                if len(dados) == 3:
+                    funcionario = {
+                        "nome": dados[0],
+                        "email": dados[1],
+                        "senha": dados[2]
+                    }
 
-                funcionario.append(funcionario)
+                    funcionarios.append(funcionario)
 
     except FileNotFoundError:
         pass
 
-    return funcionario
+    return funcionarios
 
 def listar_funcionarios():
 
@@ -51,9 +83,10 @@ def listar_funcionarios():
     for funcionario in funcionarios:
 
         print("\nNome:", funcionario["nome"])
-        print("email:", funcionario["email"])
+        print("Email:", funcionario["email"])
+        print("-" * 20)
 
-def buscar_funcionario(nome):
+def buscar_funcionarios(nome):
 
     funcionarios = carregar_funcionarios()
 
