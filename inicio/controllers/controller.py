@@ -1,0 +1,6 @@
+def inicio_func():
+    pass
+
+# eu não tenho energia o suficiente pra continuar esse código aqui e adicionar as funções... são quase 3 da manhã, eu já alcancei o meu limite e passei dele...
+# então se estiverem vendo o código, me ajudem por favor, eu não aguento mais, 14 horas fazendo a mesma coisa sem parar...
+# ainda tem a parte de que eu nem sei o que vai ter de função aqui
