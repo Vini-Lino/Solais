@@ -1,6 +1,6 @@
-from utils.validacoes import *
+from ..utils.validacoes import *
 
-ARQUIVO = "database/funcionarios.txt"
+ARQUIVO = "login/database/funcionarios.txt"
 
 
 def login_funcionario():
