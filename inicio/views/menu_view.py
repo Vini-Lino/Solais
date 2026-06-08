@@ -4,4 +4,5 @@ def inicio_menu():
     print("1 - ilhas de calor")
     print("2 - arborização urbana")
     print("3 - relatórios de impacto")
+    print("4 - configurações de conta")
     print("0 - deslogar")
