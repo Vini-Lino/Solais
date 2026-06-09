@@ -25,10 +25,27 @@ def atualizar_nome_bairro():
     pass # parte "U" do CRUD com o nome de um bairro
 
 def atualizar_temperatura():
-    pass # parte "U" do CRUD com a temperatura de um bairro
+    temperatura = float(input("Digite a temperatura do bairro: "))
+    resultado = validar_temperatura(temperatura)
+
+    if resultado:
+        print("Temperatura válida!")
+    else:
+        print("Temperatura inválida! O valor deve estar entre -70 e 70.")
 
 def atualizar_arvores():
-    pass # parte "U" do CRUD com a quantidade de árvores de um bairro
+    entrada = input("Digite o número de árvores: ")
+ 
+    if not entrada.isdigit():
+        print("Inválido! Digite apenas números inteiros.")
+    else:
+        numero_arvores = int(entrada)
+        resultado = validar_numero_arvores(numero_arvores)
+
+        if resultado:
+            print("Número de árvores válido!")
+        else:
+            print("Inválido! Não pode ser negativo.")
 
 def deletar_bairro():
     pass # parte "D" do CRUD com o bairro em si

@@ -2,14 +2,20 @@ import os
 currentdir = os.path.dirname(__file__)
 path_db = os.path.join(currentdir, "..", "database", "bairros.txt")
 
-def validar_nome_bairro():
+def validar_nome_bairro(nome):
     pass # um bairro não pode ter números ou simbolos especiais no nome, faça um código que faça com que apenas nomes com letras do alfabeto sejam válidos. Assim como um email, um bairro não pode ter o mesmo nome que outro bairro, implemente isso no código
 
-def validar_temperatura():
-    pass # a temperatura será definida por um número entre -70 à 70 (provavelmente nunca chegaria aos extremos, mas deixe essa faixa como válido mesmo assim), faça um código que faça com que apenas números (e não letras ou símbolos especiais) sejam válidos
+def validar_temperatura(temp):
+    if temp >= -70 and temp <= 70:
+        return True
+    return False
 
-def validar_numero_arvores():
-    pass # essa parte do código é destinada para o número de árvores no bairro, aceitar somente números INTEIROS, sem letras, caracteres especiais, nem números negativos (como -10) ou/e quebrados (como 5,4), não tem como existirem árvores negativas ou pela metade
+def validar_numero_arvores(numero):
+   if type(numero) != int:
+        return False
+   if numero < 0:
+        return False
+   return True
 
 
 # Sei que o projeto seria sobre a gente intervir nas ilhas de calor, com soluções e intervenções, mas não dá pra implementar isso aqui pelo menos por agora,
