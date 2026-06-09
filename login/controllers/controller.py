@@ -1,6 +1,13 @@
+import os
+import sys
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+
+current_dir = os.path.dirname(__file__)
+
 from ..utils.validacoes import *
 
-ARQUIVO = "login/database/funcionarios.txt"
+ARQUIVO = os.path.join(current_dir, "..", "database", "funcionarios.txt")
 
 
 def login_funcionario():
@@ -96,3 +103,26 @@ def buscar_funcionarios(nome):
             return funcionario
 
     return None
+
+def reescrever_database(funcionarios_lista):
+    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
+        for f in funcionarios_lista:
+            linha = f"{f['nome']};{f['email']};{f['senha']}\n"
+            arquivo.write(linha)
+
+def atualizar_senha(email, nova_senha):
+    funcionarios = carregar_funcionarios()
+
+    for f in funcionarios:
+        if f["email"] == email:
+            f["senha"] = nova_senha
+            break
+
+    reescrever_database(funcionarios)
+
+def deletar_conta(email):
+    funcionarios = carregar_funcionarios()
+
+    funcionarios_restantes = [f for f in funcionarios if f["email"] != email]
+
+    reescrever_database(funcionarios_restantes)
