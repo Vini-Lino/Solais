@@ -1,8 +1,41 @@
-def ilhas_menu():
+import os
+import sys
 
-    print("\nInformações sobre as ilhas de calor no Recife: ") # colocar f string nos prints relacionando com o database dos bairros.txt
-    print("Temperatura média: {f string aqui}") # colocar a temperatura média de todos os bairros
-    print("Árvores: {f string aqui}") # colocar a quantidade de árvores, é a quantidade de árvores somadas de todos os bairros
-    print("Zonas resfriadas: {f string aqui} bairros") # colocar zonas resfriadas (quantidade de bairros com menos de 30ºC)
-    print("Zonas críticas: {f string aqui} bairros") # colocar zonas críticas (quantidade de bairros com mais de 40ºC)
+project_root = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(__file__)
+
+from ..controllers.controller import carregar_bairros
+
+def ilhas_menu():
+    bairros = carregar_bairros()
+
+    total_temp = 0
+    total_arvores = 0
+    zonas_resfriadas = 0
+    zonas_criticas = 0
+    qnt_bairros = len(bairros)
+
+    if qnt_bairros > 0:
+        for bairro in bairros:
+            temp = float(bairro["temperatura"])
+            arvores = int(bairro["arvores"])
+
+            total_temp += temp
+            total_arvores += arvores
+
+            if temp < 30:
+                zonas_resfriadas += 1
+
+            if temp > 40:
+                zonas_criticas += 1
+
+            media_temp = total_temp / qnt_bairros
+    else:
+        media_temp = 0
+
+    print("\n--- Informações sobre as ilhas de calor no Recife ---")
+    print(f"Temperatura média: {media_temp:.2f}ºC")
+    print(f"Árvores (Total): {total_arvores}")
+    print(f"Zonas resfriadas (< 30ºC): {zonas_resfriadas} bairros")
+    print(f"Zonas críticas (> 40ºC): {zonas_criticas} bairros")
     print("0 - menu anterior")
