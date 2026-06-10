@@ -41,9 +41,3 @@ def validar_numero_arvores(numero):
    
    except ValueError:
        return False
-
-
-# Sei que o projeto seria sobre a gente intervir nas ilhas de calor, com soluções e intervenções, mas não dá pra implementar isso aqui pelo menos por agora,
-# então o que eu estou pensando é que a gente faça só um CRUD mesmo, Criar, Read(seria ler, listar), Update(Seria atualizar, editar) e Deletar os bairros de Recife, com suas temperaturas e número de árvores,
-# eu acredito que ficaria melhor em código pra a gente fazer assim, vamos em frente pessoal! :D
-# quando o código de cima estiver pronto, pode remover esses comentários daqui de baixo, eles são só pra comunicar com quem está escrevendo os códigos (^-^)

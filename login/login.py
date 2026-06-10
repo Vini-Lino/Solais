@@ -17,15 +17,13 @@ def iniciar_sistema_login():
             if usuario:
                 return usuario
 
-            break
-
         elif opcao == "2":
 
-            nome = input("Digite o seu primeiro nome: ")
+            nome = input("Digite o seu nome: ")
             
             while validar_nome(nome) == False:
                 print("Nome inválido, deve conter apenas letras")
-                nome = input("Digite o seu primeiro nome: ")
+                nome = input("Digite o seu nome: ")
 
             email = input("Digite o seu email institucional: ")
 

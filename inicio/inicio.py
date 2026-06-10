@@ -28,7 +28,7 @@ def iniciar_inicio(usuario_encontrado):
 
         elif opcao == "1":
             ilhas_menu() # ir para a tela de ilhas de calor
-            while True: # continuar daqui se tiver mais alguma opção de escolha
+            while True:
                 escolha = input("Escolha uma opção: ")
                 if escolha == "0":
                     break
@@ -37,7 +37,7 @@ def iniciar_inicio(usuario_encontrado):
 
         elif opcao == "2":
             arbourb_menu() # ir para a tela de arborização urbana
-            while True: # continuar daqui se tiver mais alguma opção de escolha
+            while True:
                 escolha = input("Escolha uma opção: ")
                 if escolha == "0":
                     break
@@ -76,20 +76,168 @@ def iniciar_inicio(usuario_encontrado):
                     arbourb_menu()
                     
                 elif escolha == "3":
-                    pass # Alterar bairros, primeiro perguntar qual bairro deseja alterar, depois qual informação do bairro, nome, temperatura, ou quantiade de árvores
+                    bairros_atuais = carregar_bairros()
+
+                    if not bairros_atuais:
+                        print("\nNenhum bairro registrado para alterar.")
+                        input("Pressione ENTER para voltar...")
+                        arbourb_menu()
+                        continue
+
+                    nome_alterar = input("Digite o nome do bairro que deseja alterar: ")
+
+                    bairro_encontrado = False
+                    for b in bairros_atuais:
+                        if b["nome"].lower() == nome_alterar.strip().lower():
+                            bairro_encontrado = True
+                            nome_original = b["nome"]
+                            break
+                    
+                    if not bairro_encontrado:
+                        print(f"\nEste bairro não foi encontrado no sistema.")
+                        input("Pressione ENTER para voltar...")
+                        arbourb_menu()
+                        continue
+
+                    while True:
+                        print(f"\n--- Alterando o bairro: {nome_original} ---")
+                        print("1 - Alterar Nome")
+                        print("2 - Alterar Temperatura")
+                        print("3 - Alterar Quantidade de Árvores")
+                        print("0 - Voltar")
+
+                        op_alterar = input("Escolha o que deseja alterar: ")
+
+                        if op_alterar == "0":
+                            arbourb_menu()
+                            break
+
+                        elif op_alterar == "1":
+                            novo_nome = input("Digite o novo nome do bairro: ")
+                            while validar_nome_bairro(novo_nome) == False:
+                                print("Nome inválido, deve conter apenas letras, ou o bairro já existe")
+                                novo_nome = input("Digite o novo nome do bairro: ")
+
+                            atualizar_nome_bairro(nome_original, novo_nome)
+                            nome_original = novo_nome
+                            print("\nNome atualizado com sucesso!")
+
+                        elif op_alterar == "2":
+                            nova_temp = input("Digite a nova temperatura: ")
+                            while validar_temperatura(nova_temp) == False:
+                                print("Temperatura inválida! deve conter um número de -70 a 70")
+                                nova_temp = input("Digite a nova temperatura: ")
+
+                            atualizar_temperatura(nome_original, nova_temp)
+                            print("\nTemperatura atualizada com sucesso!")
+
+                        elif op_alterar == "3":
+                            novas_arvores = input("Digite a quantidade de árvores: ")
+                            while validar_numero_arvores(novas_arvores) == False:
+                                print("Número inválido! deve ser um número inteiro positivo")
+                                novas_arvores = input("Digite a quantidade de árvores: ")
+
+                            atualizar_arvores(nome_original, novas_arvores)
+                            print("\nA quantidade de árvores foi atualizada com sucesso!")
+
+                        else:
+                            print("\nOpção inválida")
+
                 elif escolha == "4":
-                    pass # Excluir bairros, primeiro perguntar qual bairro deseja excluir, com confirmação de S/N
+                    bairros_atuais = carregar_bairros()
+
+                    if not bairros_atuais:
+                        print("Nenhum bairro encontrado para excluir")
+                        input("Pressione ENTER para voltar...")
+                        arbourb_menu()
+                        continue
+
+                    bairro_excluir = input("Digite um nome de um bairro para excluir: ")
+
+                    bairro_encontrado = False
+                    for b in bairros_atuais:
+                        if b["nome"].lower() == bairro_excluir.strip().lower():
+                            bairro_encontrado = True
+                            nome_original = b["nome"]
+                            break
+                    
+                    if not bairro_encontrado:
+                        print(f"\nEste bairro não foi encontrado no sistema.")
+                        input("Pressione ENTER para voltar...")
+                        arbourb_menu()
+                        continue
+
+                    while True:
+                        confirmation = input("Tem certeza que deseja excluir o bairro? (S/N): ").strip().upper()
+
+                        if confirmation == "S":
+                            deletar_bairro(nome_original)
+                            print("\nBairro excluido com sucesso!")
+
+                            arbourb_menu()
+                            break
+                        elif confirmation == "N":
+                            print("\nAção cancelada")
+                            arbourb_menu()
+                            break
+                        else:
+                            print("\nOpção inválida, Por favor, digite S ou N")
+
                 else:
                     print("Opção invalida")
 
         elif opcao == "3":
             relatorio_menu() # ir para a tela de relatórios de impacto
-            while True: # continuar daqui se tiver mais alguma opção de escolha
+            while True:
                 escolha = input("Escolha uma opção: ")
                 if escolha == "0":
                     break
+                elif escolha == "1":
+                    listar_bairros()
+                    input("Pressione ENTER para voltar...")
+                    relatorio_menu()
+                    continue
+
+                elif escolha == "2":
+                    bairros_atuais = carregar_bairros()
+
+                    if not bairros_atuais:
+                        print("\nNenhum bairro registrado no banco de dados.")
+                        input("Pressione ENTER para voltar...")
+                        relatorio_menu()
+                        continue
+
+                    termo_busca = input("Digite o nome do bairro que deseja buscar: ").strip()
+                    bairro_encontrado = None
+
+                    for b in bairros_atuais:
+                        if b["nome"].lower() == termo_busca.lower():
+                            bairro_encontrado = b
+                            break
+
+                    if bairro_encontrado:
+                        nome = bairro_encontrado["nome"]
+                        temp = float(bairro_encontrado["temperatura"])
+                        arvores = bairro_encontrado["arvores"]
+
+                        print(f"\n--- Relatório de Impacto: {nome} ---")
+                        print(f"Temperatura Registrada: {temp}°C")
+                        print(f"Quantidade de Árvores: {arvores}")
+                        
+                        if temp <= 0 or temp >= 40:
+                            print("Status Climático: Temperatura Extrema")
+                        else:
+                            print("Status Climático: Estável")
+                        
+                        print("-" * 35)
+                    else:
+                        print(f"\nO bairro '{termo_busca}' não foi encontrado no sistema.")
+
+                    input("\nPressione ENTER para voltar...")
+                    relatorio_menu()
+
                 else:
-                    print("Opção inválida") # por enquanto não decidi ainda sobre essa parte, e agora estou pensando se sequer vai existir uma tela dedicada pra o relatório se ele só faz listar as informações dos bairros o que a opção 2 já pode fazer... então por enquanto, ignora isso aqui até ter partes desse CRUD funcionando
+                    print("Opção inválida")
 
         elif opcao == "4":
             config_conta(usuario_encontrado)
