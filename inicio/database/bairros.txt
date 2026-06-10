@@ -1,1 +1,1 @@
-Nome_do_bairro;Temperatura;Quantidade_de_Arvores # essa vai ser a estrutura, por favor apaga essa linha de texto aqui quando for testar o código
+

@@ -42,9 +42,39 @@ def iniciar_inicio(usuario_encontrado):
                 if escolha == "0":
                     break
                 elif escolha == "1":
-                    pass # Criar bairros
+
+                    nome_bairro = input("Digite o nome do bairro: ")
+
+                    while validar_nome_bairro(nome_bairro) == False:
+                        print("Nome inválido, deve conter apenas letras, ou o bairro já existe")
+                        nome_bairro = input("Digite o nome do bairro: ")
+
+                    temperatura = input("Digite a temperatura do bairro: ")
+
+                    while validar_temperatura(temperatura) == False:
+                        print("Temperatura inválida! deve conter um número de -70 a 70")
+                        temperatura = input("Digite a temperatura do bairro: ")
+
+                    arvores = input("Digite o número de árvores: ")
+
+                    while validar_numero_arvores(arvores) == False:
+                        print("Número inválido! deve ser um número inteiro positivo")
+                        arvores = input("Digite o número de árvores: ")
+
+                    bairro = {
+                        "nome": nome_bairro,
+                        "temperatura": temperatura,
+                        "arvores": arvores
+                    }
+
+                    salvar_bairros(bairro)
+                    print("Bairro salvo com sucesso!")
+                    arbourb_menu()
+
                 elif escolha == "2":
-                    pass # Listar bairros
+                    listar_bairros()
+                    arbourb_menu()
+                    
                 elif escolha == "3":
                     pass # Alterar bairros, primeiro perguntar qual bairro deseja alterar, depois qual informação do bairro, nome, temperatura, ou quantiade de árvores
                 elif escolha == "4":
